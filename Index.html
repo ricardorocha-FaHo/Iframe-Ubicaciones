@@ -2,17 +2,22 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mi Ubicación Actual</title>
 
 <style>
   body {
     font-family: Arial, sans-serif;
-    padding: 25px;
+    padding: 20px;
     background: #f5f5f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   h2 {
     margin-bottom: 20px;
+    text-align: center;
   }
 
   .card {
@@ -21,29 +26,31 @@
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     width: 100%;
-    max-width: 350px;
+    max-width: 420px;
   }
 
   .label {
     font-weight: bold;
     margin-top: 10px;
     color: #333;
+    font-size: 16px;
   }
 
   .value {
     background: #eee;
-    padding: 8px 10px;
+    padding: 10px;
     border-radius: 6px;
     margin-top: 3px;
     display: block;
-    font-size: 16px;
+    font-size: 17px;
+    word-wrap: break-word;
   }
 
   button {
     margin-top: 20px;
-    padding: 12px;
+    padding: 14px;
     width: 100%;
-    font-size: 16px;
+    font-size: 17px;
     background: #007bff;
     color: white;
     border: none;
@@ -54,6 +61,20 @@
 
   button:hover {
     background: #005fcc;
+  }
+
+  /* Ajustes para pantallas pequeñas */
+  @media (max-width: 480px) {
+    body {
+      padding: 10px;
+    }
+    .card {
+      padding: 15px;
+    }
+    button {
+      font-size: 16px;
+      padding: 12px;
+    }
   }
 </style>
 
@@ -76,7 +97,6 @@
   let latitud = "";
   let longitud = "";
 
-  // Obtener ubicación
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
@@ -89,12 +109,10 @@
       (err) => {
         document.getElementById("lat").innerText = "Error";
         document.getElementById("lon").innerText = "Error";
-        console.error(err);
       }
     );
   }
 
-  // Copiar coordenadas
   function copiarCoords() {
     if (latitud && longitud) {
       const texto = `Latitud: ${latitud}, Longitud: ${longitud}`;
